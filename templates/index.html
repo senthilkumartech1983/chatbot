@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(173, 19, 19, 0.1);
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            min-height: 50px; /* Ensure it's visible even when empty */
+            word-wrap: break-word; /* Break long words */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; background-color: dodgerblue; font-style: oblique; color: indigo;">QUERY CHATBOT</h2>
+        <form id="myForm">
+            <h3>Input:</h3>
+            <input type="text" id="input1" name="input1" placeholder="Enter your free text query here">
+
+            <button type="submit">Check with AI</button>
+        </form>
+
+        <h3>Output:</h3>
+        <div id="output">
+            </div>
+    </div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const input1 = document.getElementById('input1').value;
+            
+            // Prepare data to send to Python
+            const data = {
+                input1: input1
+            };
+
+            try {
+                // Send data to your Python backend
+                // Replace '/process_data' with the actual endpoint of your Python application
+                const response = await fetch('/process_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json(); // Assuming your Python returns JSON
+
+                // Display the output
+                document.getElementById('output').textContent = result.output; // Adjust 'result.output' based on your Python's JSON key
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('output').textContent = 'Error: Could not get response from server.';
+            }
+        });
+    </script>
+</body>
+</html>
