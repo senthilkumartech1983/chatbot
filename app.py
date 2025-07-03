@@ -20,7 +20,8 @@ db_host = "localhost:3306"
 db_name = "test"
 
 # Create SQLAlchemy engine
-db_uri = "mysql+mysqlconnector://root:365536@localhost:3306/genainosql"
+# db_uri = "mysql+mysqlconnector://root:365536@localhost:3306/genainosql"
+db_uri = "mysql+mysqlconnector://sql12787708:KCcxsNAL1D@sql12.freesqldatabase.com:3306/sql12787708"
 
 # Initialize SQLDatabase
 db = SQLDatabase.from_uri(db_uri)
