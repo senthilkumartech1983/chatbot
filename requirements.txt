@@ -1,13 +1,8 @@
 langchain
 Flask
 streamlit
-langchain.chains
 langchain_google_genai
-sqlalchemy.exc
-langchain.utilities
-langchain_experimental.sql
-langchain_community.utilities
-langchain.chat_models
-langchain_community.agent_toolkits
+sqlalchemy
+langchain_experimental
+langchain_community
 langgraph
-langgraph.prebuilt
