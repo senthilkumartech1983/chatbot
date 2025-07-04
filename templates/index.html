@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Query Chatbot</title>
+    <title>BizBot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,7 +39,7 @@
             border: #bd0909;
             border-color: #bd0909;
             border-radius: 4px;
-            cursor: auto;
+            cursor: pointer;
             font-size: 16px;
         }
         button:hover {
@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="container">
-        <h2 style="text-align: center; background-color: blueviolet; font-style: normal; color: indigo;">QUERY CHATBOT</h2>
+        <h2 style="text-align: center; background-color: darkgoldenrod; font-style: normal; color: indigo;">BizData AI,BizScan,Query Mate,DataPulse</h2>
         Hi Welcome,
         <form id="myForm">
             <!-- <h3>Input:</h3>
@@ -86,13 +86,14 @@
             </button> -->
             <script>
                  function clearInputField() {
+                     document.getElementById('output').reset();
                      document.getElementById('myForm').reset();
             }
     </script>
             
         </form>
 
-        <h3 style="text-align: center; font-style: normal; color: indigo;">Result</h3>
+        <h3 style="text-align: center; font-style: normal; color: indigo;">Results</h3>
         <div id="output">
             </div>
     </div>

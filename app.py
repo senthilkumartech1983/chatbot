@@ -30,7 +30,7 @@ os.environ["GOOGLE_API_KEY"] = "AIzaSyCqSJfni-2eEiFbDl8CpQrXd8Pb_VnrjPc"
 
 # Initialize LLM
 #llm = GoogleGenerativeAI(model="gemini-1.5-flash-002",google_api_key="AIzaSyCqSJfni-2eEiFbDl8CpQrXd8Pb_VnrjPc")
-llm = init_chat_model('gemini-1.5-flash-002',model_provider='google_genai')
+llm = init_chat_model('gemini-2.5-flash',model_provider='google_genai')
 
 toolkit = SQLDatabaseToolkit(db=db,llm=llm)
 tools = toolkit.get_tools()
@@ -64,9 +64,9 @@ def get_sql_agent_output(sql_agent_instance, user_query):
         stream_mode='values'
     ):
         if 'messages' in event and len(event['messages']) > 0:
-            if 8 == len(event['messages']) :
+            if 10 == len(event['messages']) :
                 try:
-                    print(f"YESSSS")
+                    print(f"YES")
                     message_object = event['messages'][-1]
                     old_stdout = sys.stdout
                     redirected_output = io.StringIO()
@@ -84,7 +84,7 @@ def get_sql_agent_output(sql_agent_instance, user_query):
         # You could add an else here if you want to log events that don't contain messages,
         # but it won't be part of the returned list.
             else:     
-                print(f"Noooooo")
+                print(f"NO")
             # message_object = event['messages'][-1]
 
             # Create a string buffer to capture output
@@ -112,8 +112,21 @@ def process_data():
         else:
             output_message = "Please provide input text"
         # --- End of Your Python Logic ---
-
-        return jsonify(output=output_message)
+              
+        original_message_list = output_message
+        # Access the string from the list
+        message_string = original_message_list[0]
+        import re
+        # Use a regular expression to find the part after "Ai Message =" and leading/trailing whitespace
+        # match = re.search(r"Ai Message\s*=+[\s\n]*(.*)", message_string, re.DOTALL)
+        parts = message_string.split("Ai Message")
+        if len(parts) > 1:
+            cleaned_message = parts[1].strip("= ") # Remove leading/trailing '=' and spaces
+        else:
+            cleaned_message = message_string
+        
+        
+        return jsonify(output=cleaned_message)
     else:
         return jsonify(error="Request must be JSON"), 400
 
